@@ -88,248 +88,215 @@ export function Header() {
   }, [mobileMenuRef]);
 
   return (
-    <header className="w-full border-b border-gray-700/50 bg-zinc-900/90 backdrop-blur-md sticky top-0 z-50 shadow-lg">
-      <div className="container mx-auto px-4 flex flex-col md:flex-row h-auto md:h-20 items-center justify-between py-3 md:py-0 gap-3 md:gap-0">
-        {/* Left: Logo and nav */}
-        <div className="flex items-center justify-between w-full md:w-auto">
+    <header className="w-full bg-gradient-to-b from-zinc-900 to-zinc-900/95 backdrop-blur-md sticky top-0 z-50 shadow-lg border-b border-zinc-800/50">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-20">
+          {/* Logo */}
           <Link to="/" className="flex items-center group">
             <img
               src={logo}
               alt="MovieDB Logo"
-              className="h-24 w-auto object-contain transition-transform group-hover:scale-105"
+              className="h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
           </Link>
 
-          {/* Hamburger menu for mobile */}
-          <button
-            className="md:hidden text-white p-2 rounded-lg hover:bg-gray-800/50 transition-all"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Open menu"
-          >
-            {isMobileMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
-          </button>
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center space-x-1">
+            <Link
+              to="/movies"
+              className="px-4 py-2 rounded-lg text-base font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 transition-all duration-200"
+            >
+              Movies
+            </Link>
+            <Link
+              to="/series"
+              className="px-4 py-2 rounded-lg text-base font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 transition-all duration-200"
+            >
+              Series
+            </Link>
+            <Link
+              to="/people"
+              className="px-4 py-2 rounded-lg text-base font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 transition-all duration-200"
+            >
+              Actors
+            </Link>
+            <Link
+              to="/watchlist"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg text-zinc-300 hover:text-white hover:bg-zinc-800/50 transition-all duration-200"
+            >
+              <Bookmark className="h-5 w-5" />
+              <span>Watchlist</span>
+            </Link>
+          </nav>
+
+          {/* Right Section - Search and Auth */}
+          <div className="hidden lg:flex items-center space-x-3">
+            <button
+              onClick={() => {
+                setIsSearchOpen(true);
+                setTimeout(() => searchInputRef.current?.focus(), 100);
+              }}
+              className="flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-800/50 hover:bg-zinc-700/70 text-zinc-300 hover:text-white transition-all duration-200"
+              aria-label="Search movies"
+            >
+              <Search className="h-5 w-5" />
+              <span className="text-sm">Search...</span>
+              <kbd className="ml-2 text-xs bg-zinc-700/50 px-2 py-1 rounded">Ctrl+K</kbd>
+            </button>
+
+            <Link
+              to="/login"
+              className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white transition-all duration-200 shadow-lg shadow-pink-500/20"
+            >
+              <User className="h-5 w-5" />
+              <span>Login</span>
+            </Link>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="lg:hidden flex items-center space-x-3">
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="p-2 rounded-full bg-zinc-800/50 hover:bg-zinc-700/70 text-white transition-all duration-200"
+              aria-label="Search movies"
+            >
+              <Search className="h-5 w-5" />
+            </button>
+
+            <button
+              className="text-white p-2 rounded-lg hover:bg-zinc-800/50 transition-all duration-200"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </button>
+          </div>
         </div>
 
-        {/* Mobile menu */}
+        {/* Mobile Menu */}
         <div
           ref={mobileMenuRef}
           className={`${
-            isMobileMenuOpen ? "block" : "hidden"
-          } md:hidden absolute top-20 left-0 right-0 bg-zinc-900/95 backdrop-blur-md border-t border-gray-700/50 z-40 animate-fade-in`}
+            isMobileMenuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+          } lg:hidden overflow-hidden transition-all duration-300 ease-in-out bg-zinc-900/95 backdrop-blur-md border-t border-zinc-800/50`}
         >
-          <nav className="flex flex-col items-center py-4 gap-4">
+          <nav className="flex flex-col items-center py-4 space-y-2">
             <Link
               to="/movies"
-              className="text-lg font-medium text-gray-300 hover:text-white transition-colors px-6 py-2 rounded-lg hover:bg-gray-800/50 w-full text-center"
+              className="w-full text-center px-6 py-3 text-lg font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 transition-all duration-200"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Movies
             </Link>
             <Link
               to="/series"
-              className="text-lg font-medium text-gray-300 hover:text-white transition-colors px-6 py-2 rounded-lg hover:bg-gray-800/50 w-full text-center"
+              className="w-full text-center px-6 py-3 text-lg font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 transition-all duration-200"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Series
             </Link>
             <Link
               to="/people"
-              className="text-lg font-medium text-gray-300 hover:text-white transition-colors px-6 py-2 rounded-lg hover:bg-gray-800/50 w-full text-center"
+              className="w-full text-center px-6 py-3 text-lg font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 transition-all duration-200"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Actors
             </Link>
             <Link
               to="/watchlist"
-              className="flex items-center justify-center gap-2 text-lg text-gray-300 hover:text-white transition-colors px-6 py-2 rounded-lg hover:bg-gray-800/50 w-full"
+              className="w-full text-center px-6 py-3 text-lg font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 transition-all duration-200"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              <Bookmark className="h-5 w-5" />
-              <span>Watchlist</span>
+              <div className="flex items-center justify-center gap-2">
+                <Bookmark className="h-5 w-5" />
+                <span>Watchlist</span>
+              </div>
             </Link>
-            <div className="w-full border-t border-gray-700/50 pt-4 mt-2 flex flex-col items-center gap-3">
-              <button
-                onClick={() => setIsSearchOpen(true)}
-                className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
-              >
-                <Search className="h-5 w-5" />
-                <span>Search</span>
-              </button>
+            <div className="w-full border-t border-zinc-800/50 pt-4 mt-2">
               <Link
                 to="/login"
-                className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
+                className="w-full text-center px-6 py-3 text-lg font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/50 transition-all duration-200"
+                onClick={() => setIsMobileMenuOpen(false)}
               >
-                <LogIn className="h-5 w-5" />
-                <span>Login</span>
+                <div className="flex items-center justify-center gap-2">
+                  <LogIn className="h-5 w-5" />
+                  <span>Login</span>
+                </div>
               </Link>
             </div>
           </nav>
         </div>
+      </div>
 
-        {/* Desktop navigation */}
-        <nav className="hidden md:flex items-center gap-1">
-          <Link
-            to="/movies"
-            className="px-4 py-2 rounded-lg text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800/50 transition-all"
-          >
-            Movies
-          </Link>
-          <Link
-            to="/series"
-            className="px-4 py-2 rounded-lg text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800/50 transition-all"
-          >
-            Series
-          </Link>
-          <Link
-            to="/people"
-            className="px-4 py-2 rounded-lg text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800/50 transition-all"
-          >
-            Actors
-          </Link>
-          <Link
-            to="/watchlist"
-            className="flex items-center gap-2 px-4 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-gray-800/50 transition-all"
-          >
-            <Bookmark className="h-5 w-5" />
-            <span className="hidden sm:inline">Watchlist</span>
-          </Link>
-        </nav>
-
-        {/* Right: Auth and search */}
-        <div className="hidden md:flex items-center gap-3">
-          <button
-            onClick={() => {
-              setIsSearchOpen(true);
-              setTimeout(() => searchInputRef.current?.focus(), 100);
-            }}
-            className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-800/50 hover:bg-gray-700/70 text-gray-300 hover:text-white transition-all"
-            aria-label="Search movies"
-          >
-            <Search className="h-5 w-5" />
-            <span className="text-sm">Search...</span>
-            <kbd className="ml-2 text-xs bg-gray-700/50 px-2 py-1 rounded">
-              Ctrl+K
-            </kbd>
-          </button>
-
-          <Link
-            to="/login"
-            className="flex items-center gap-2 px-4 py-2 rounded-full bg-pink-600 hover:bg-pink-700 text-white transition-all"
-          >
-            <User className="h-5 w-5" />
-            <span>Login</span>
-          </Link>
-        </div>
-
-        {/* Mobile search button */}
-        <button
-          onClick={() => setIsSearchOpen(true)}
-          className="md:hidden p-2 rounded-full bg-gray-800/50 hover:bg-gray-700/70 text-white transition-colors"
-          aria-label="Search movies"
+      {/* Search Modal */}
+      {isSearchOpen && (
+        <div
+          className="fixed inset-0 backdrop-blur-sm bg-black/70 z-50 flex justify-center items-start pt-16 pb-8 animate-fade-in"
+          onClick={handleBackdropClick}
         >
-          <Search className="h-5 w-5" />
-        </button>
-
-        {/* Search Modal */}
-        {isSearchOpen && (
           <div
-            className="fixed inset-0 backdrop-blur-sm bg-black/70 z-50 flex justify-center items-start pt-16 pb-8 animate-fade-in"
-            onClick={handleBackdropClick}
+            className="w-[90vw] max-w-3xl bg-zinc-900 rounded-xl shadow-2xl overflow-hidden flex flex-col max-h-[80vh] border border-zinc-800/50"
+            onClick={(e) => e.stopPropagation()}
           >
-            <div
-              className="w-[90vw] max-w-3xl bg-gray-800 rounded-xl shadow-2xl overflow-hidden flex flex-col max-h-[80vh] border border-gray-700/50"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Search Header */}
-              <div className="sticky top-0 bg-gray-800 p-4 border-b border-gray-700/50 z-10">
-                <div className="flex items-center gap-3">
-                  <div className="relative flex-1">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-                    <input
-                      ref={searchInputRef}
-                      type="text"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder="Search for movies, series, actors..."
-                      className="w-full pl-12 pr-10 py-3 text-base border-0 focus:outline-none bg-gray-700/50 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-pink-500/50"
-                      autoFocus
-                    />
-                    {searchQuery && (
-                      <button
-                        onClick={() => setSearchQuery("")}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-300 transition-colors"
-                      >
-                        <X className="h-5 w-5" />
-                      </button>
-                    )}
-                  </div>
-                  <button
-                    onClick={handleCloseModal}
-                    className="p-2 rounded-lg hover:bg-gray-700/50 text-gray-400 hover:text-white transition-colors"
-                  >
-                    <span className="hidden sm:inline mr-2">Esc</span>
-                    <X className="h-5 w-5 inline" />
-                  </button>
-                </div>
-              </div>
-
-              {/* Search Results */}
-              <div className="flex-1 overflow-y-auto p-4 bg-gray-900/50 min-h-[300px]">
-                {searchQuery ? (
-                  searchResults.length > 0 ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {searchResults.map((item) => (
-                        <MovieCard
-                          key={item.id}
-                          imageUrl={
-                            item.poster_path
-                              ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
-                              : "/placeholder-movie.jpg"
-                          }
-                          title={item.type === "movie" ? item.title : item.name}
-                          rating={
-                            item.vote_average ? Number(item.vote_average) : 0
-                          }
-                          releaseDate={
-                            item.release_date ||
-                            item.first_air_date ||
-                            "2023-01-01"
-                          }
-                          className="hover:scale-[1.02] transition-transform"
-                          showPlayButton={true}
-                          id={item.id}
-                          typeOfCard={item.type}
-                        />
-                      ))}
-                    </div>
-                  ) : (
-                    <NoResults message="No results found" />
-                  )
-                ) : (
-                  <NoResults
-                    message="Search movies & series"
-                    sub="Type to find your favorite content"
+            {/* Search Header */}
+            <div className="sticky top-0 bg-zinc-900 p-4 border-b border-zinc-800/50 z-10">
+              <div className="flex items-center gap-3">
+                <div className="relative flex-1">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-zinc-400" />
+                  <input
+                    ref={searchInputRef}
+                    type="text"
+                    placeholder="Search for movies, series, or actors..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-10 pr-4 py-3 bg-zinc-800/50 border border-zinc-700/50 rounded-lg text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-pink-500/50 focus:border-transparent"
                   />
-                )}
+                </div>
+                <button
+                  onClick={handleCloseModal}
+                  className="p-2 rounded-lg hover:bg-zinc-800/50 text-zinc-400 hover:text-white transition-colors"
+                >
+                  <X className="h-5 w-5" />
+                </button>
               </div>
             </div>
+
+            {/* Search Results */}
+            <div className="flex-1 overflow-y-auto p-4">
+              {searchResults.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {searchResults.map((item) => (
+                    <MovieCard key={item.id} movie={item} />
+                  ))}
+                </div>
+              ) : searchQuery.trim() ? (
+                <NoResults
+                  message="No results found"
+                  sub="Try different keywords or check your spelling"
+                />
+              ) : (
+                <NoResults
+                  message="Start typing to search"
+                  sub="Search for movies, series, or actors"
+                />
+              )}
+            </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </header>
   );
 }
 
 function NoResults({ message, sub }) {
   return (
-    <div className="flex flex-col items-center justify-center h-[300px] text-gray-500">
-      <Search className="h-12 w-12 mb-4 text-gray-600" />
-      <h3 className="text-xl font-medium text-white">{message}</h3>
-      {sub && <p className="text-gray-400 mt-2">{sub}</p>}
+    <div className="flex flex-col items-center justify-center py-12 text-center">
+      <p className="text-xl font-medium text-zinc-300">{message}</p>
+      <p className="text-sm text-zinc-400 mt-1">{sub}</p>
     </div>
   );
 }
