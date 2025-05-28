@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -11,15 +11,11 @@ import { getMovieById } from "../../movies/movieApi";
 import { useDispatch } from "react-redux";
 import { addMovieAction, editMovieAction } from "../../movies/movieSlice";
 import { v4 as uuidv4 } from "uuid";
-import { AuthContext } from "@/features/auth/AuthContext.js";
 
 export function MovieForm() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { setIsHeader } = useContext(AuthContext);
-
-  setIsHeader(true);
 
   const [formData, setFormData] = useState({
     title: "",

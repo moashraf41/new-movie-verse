@@ -1,11 +1,14 @@
 import PropTypes from "prop-types";
-import { useContext } from "react";
-import { AuthContext } from "@/features/auth/AuthContext.js";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export function MyHeader({ activeTab, onTabChange }) {
-  const { logout, setIsHeader } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  setIsHeader(true);
+  const logout = () => {
+    Cookies.remove("isLoggedIn", { path: "/" });
+    navigate("/login");
+  };
 
   return (
     <header className="w-full bg-gradient-to-r from-zinc-900 to-zinc-800 border-b border-zinc-700 p-4 shadow-lg mb-10 sticky top-0 z-50">

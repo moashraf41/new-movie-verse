@@ -4,22 +4,18 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { MdAddTask } from "react-icons/md";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Textarea } from "@/components/ui/textarea";
 import { getSeriesById } from "../../series/seriesApi";
 import { useDispatch } from "react-redux";
 import { addSeriesAction, editSeriesAction } from "../../series/seriesSlice";
 import { v4 as uuidv4 } from "uuid";
-import { AuthContext } from "@/features/auth/AuthContext.js";
 
 export function SeriesForm() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { setIsHeader } = useContext(AuthContext);
-
-  setIsHeader(true);
 
   const [formData, setFormData] = useState({
     title: "",

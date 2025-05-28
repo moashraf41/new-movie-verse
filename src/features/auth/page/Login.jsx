@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,13 +23,10 @@ import { Separator } from "@/components/ui/separator";
 import { SocialLoginButtons } from "../components/SocialLoginButtons";
 import { Link, useNavigate } from "react-router-dom";
 import { LogIn, AlertCircle } from "lucide-react";
-import { AuthContext } from "@/features/auth/AuthContext.js";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import Cookies from "js-cookie";
 
 export default function Login() {
-  const { login, setIsHeader } = useContext(AuthContext);
-
-  setIsHeader(false);
   const navigate = useNavigate();
   const [loginError, setLoginError] = useState("");
 
@@ -67,10 +64,8 @@ export default function Login() {
   };
 
   const onSubmit = (data) => {
-    // Clear previous errors
     setLoginError("");
 
-    // Manual validation
     const emailValidation = validateEmail(data.email);
     const passwordValidation = validatePassword(data.password);
 
@@ -87,12 +82,11 @@ export default function Login() {
       return;
     }
 
-    // If validation passes, attempt login
-    const result = login(data);
-    if (result.success) {
+    if (data.email === "admin@movie.com" && data.password === "admin@12345") {
+      Cookies.set("isLoggedIn", "true", { path: "/" });
       navigate("/admin");
     } else {
-      setLoginError(result.message || "Invalid email or password");
+      setLoginError("Invalid email or password");
     }
   };
 
