@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { AuthContext } from "./authContext.js";
+import { AuthContext } from "./AuthContext.js";
 import Cookies from "js-cookie";
 
 export const AuthProvider = ({ children }) => {
