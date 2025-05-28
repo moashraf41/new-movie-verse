@@ -9,6 +9,7 @@ import { Button } from "../../../shared/components/MyButton";
 import { useDispatch } from "react-redux";
 import { getMovieByIdAction } from "../movieSlice";
 import { getSeriesByIdAction } from "../../series/seriesSlice";
+import { API_URL } from "../../../shared/constants";
 
 export default function AddReviewDialog({
   open,
@@ -46,19 +47,28 @@ export default function AddReviewDialog({
     };
 
     try {
-      const url = `http://localhost:3001/${
-        type === "movie" ? "movies" : "series"
-      }/${id}`;
-      const response = await fetch(url, {
+      // First, get the current media item
+      const mediaType = type === "movie" ? "movies" : "series";
+      const getResponse = await fetch(`${API_URL}/${mediaType}/${id}`);
+      if (!getResponse.ok) throw new Error("Failed to fetch media");
+      const currentMedia = await getResponse.json();
+
+      // Add the new review to the reviews array
+      const updatedReviews = [...(currentMedia.reviews || []), newReview];
+
+      // Update the media item with the new reviews array
+      const updateResponse = await fetch(`${API_URL}/${mediaType}/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          reviews: [...selectedMedia.reviews, newReview],
+          ...currentMedia,
+          reviews: updatedReviews,
         }),
       });
 
-      if (!response.ok) throw new Error("Failed to submit review");
+      if (!updateResponse.ok) throw new Error("Failed to submit review");
 
+      // Refresh the media data
       type === "movie"
         ? dispatch(getMovieByIdAction(id))
         : dispatch(getSeriesByIdAction(id));

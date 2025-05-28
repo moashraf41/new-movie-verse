@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { API_URL } from "../../shared/constants";
 
 export const addToWatchlistAction = createAsyncThunk(
   "watchlist/add",
   async (media, { rejectWithValue }) => {
     try {
-      const response = await fetch("http://localhost:3001/watchlist", {
+      const response = await fetch(`${API_URL}/watchlist`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(media),
@@ -21,7 +22,7 @@ export const fetchWatchlistAction = createAsyncThunk(
   "watchlist/fetch",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch("http://localhost:3001/watchlist");
+      const response = await fetch(`${API_URL}/watchlist`);
       if (!response.ok) throw new Error("Failed to fetch watchlist");
       return await response.json();
     } catch (error) {
@@ -35,13 +36,13 @@ export const removeFromWatchlistAction = createAsyncThunk(
   async (mediaId, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `http://localhost:3001/watchlist/${mediaId}`,
+        `${API_URL}/watchlist/${mediaId}`,
         {
           method: "DELETE",
         }
       );
       if (!response.ok) throw new Error("Failed to remove from watchlist");
-      return mediaId; // تأكد من أن الـ API يُعيد الـ ID الصحيح
+      return mediaId;
     } catch (error) {
       return rejectWithValue(error.message);
     }

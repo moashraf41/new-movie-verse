@@ -1,4 +1,4 @@
-export const API_URL = "http://localhost:3001";
-export const API_URL_MOVIES = "http://localhost:3001/movies";
-export const API_URL_SERIES = "http://localhost:3001/series";
-export const API_URL_PEOPLE = "http://localhost:3001/people";
+export const API_URL = "https://76e05d9f-631e-413b-86b5-4746600a4023-00-33kbzjpnyookx.riker.replit.dev";
+export const API_URL_MOVIES = "https://76e05d9f-631e-413b-86b5-4746600a4023-00-33kbzjpnyookx.riker.replit.dev/movies";
+export const API_URL_SERIES = "https://76e05d9f-631e-413b-86b5-4746600a4023-00-33kbzjpnyookx.riker.replit.dev/series";
+export const API_URL_PEOPLE = "https://76e05d9f-631e-413b-86b5-4746600a4023-00-33kbzjpnyookx.riker.replit.dev/people";

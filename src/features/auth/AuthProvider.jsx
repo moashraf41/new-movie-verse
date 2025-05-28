@@ -1,4 +1,3 @@
-// src/features/auth/context/AuthProvider.jsx
 import { useState, useEffect } from "react";
 import { AuthContext } from "./AuthContext";
 import Cookies from "js-cookie";
