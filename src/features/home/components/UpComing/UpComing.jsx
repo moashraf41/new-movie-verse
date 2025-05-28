@@ -1,12 +1,12 @@
 import React from "react";
 import { MovieSection } from "../shared/MovieSection";
-import { filterUpcoming } from "../../../../shared/utils/movieUtils";
+import { filterHighRated } from "../../../../shared/utils/movieUtils";
 
-export default function UpComing() {
+export default function TopRated() {
   return (
     <MovieSection
-      title="Upcoming"
-      getMovies={filterUpcoming}
+      title="Top Rated"
+      getMovies={filterHighRated}
       limit={20}
       navigationId="upcoming-swiper-nav"
       overlayVariant="blue"

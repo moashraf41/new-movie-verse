@@ -24,7 +24,6 @@ export function Home() {
         <TrendingMovies></TrendingMovies>
         <FreeContentSection></FreeContentSection>
 
-        <UpComing></UpComing>
 
         <NewReleas></NewReleas>
       </div>
