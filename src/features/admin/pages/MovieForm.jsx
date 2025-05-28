@@ -11,7 +11,7 @@ import { getMovieById } from "../../movies/movieApi";
 import { useDispatch } from "react-redux";
 import { addMovieAction, editMovieAction } from "../../movies/movieSlice";
 import { v4 as uuidv4 } from "uuid";
-import { AuthContext } from "@/features/auth/AuthContext";
+import { AuthContext } from "../../auth/AuthContext.js";
 
 export function MovieForm() {
   const { id } = useParams();

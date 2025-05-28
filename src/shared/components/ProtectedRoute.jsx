@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { useContext } from "react";
-import { AuthContext } from "@/features/auth/AuthContext";
+import { AuthContext } from "../../features/auth/AuthContext.js";
 import Cookies from "js-cookie";
 
 export default function ProtectedRoute({ children }) {
